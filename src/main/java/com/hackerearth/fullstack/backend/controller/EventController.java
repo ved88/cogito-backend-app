@@ -41,15 +41,23 @@ public class EventController {
         }
         Event event=new Event();
 
-
         //Your Code here
-
+        
+        event.setActorId(eventRequest.getActorId());
+        event.setPublic(eventRequest.isPublic());
+        event.setType(eventRequest.getType());
+        event.setRepo(repo);
 
         event=eventRepository.save(event);
         EventResponse eventResponse =new EventResponse();
-        
 
         //Your Code here
+        
+        eventResponse.setActorId((int)event.getActorId());
+        eventResponse.setRepoId((int)event.getRepo().getId());
+        eventResponse.setId((int)event.getId());
+        eventResponse.setType(event.getType());
+        eventResponse.setPublic(event.isPublic());
 
 
         return ResponseEntity.status(Constants.EVENT_CREATED).body(eventResponse);
